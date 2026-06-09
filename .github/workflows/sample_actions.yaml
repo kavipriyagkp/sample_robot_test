@@ -1,0 +1,9 @@
+name: Sample Workflow
+on : push
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Testing workflow
+        run: ls
