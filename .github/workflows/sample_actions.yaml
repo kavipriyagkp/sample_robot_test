@@ -141,22 +141,24 @@ jobs:
 
       - name: Change directory and assign variables
         run: |
+
+          cd wiki
           ls -lrt
           DATE=$(date "+%Y-%m-%d %H:%M:%S")
           PIPELINE_ID=${{ github.run_id }}
-          PASSED=$(jq '.passed' analysis/robot_summary.json)
-          FAILED=$(jq '.failed' analysis/robot_summary.json)
+          PASSED=$(jq '.passed' ../analysis/robot_summary.json)
+          FAILED=$(jq '.failed' ../analysis/robot_summary.json)
           LOG_LINK="https://github.com/kavipriyagkp/sample_robot_test/tree/test-logs/logs/Report_${{ github.run_id }}/log.html?inline=false"
           REASON_LINK="https://github.com/kavipriyagkp/sample_robot_test/tree/test-logs/logs/Report_${{ github.run_id }}/robot_summary.json?inline=false"
-          sed -i '/^$/d' Test-Reports.md
-          echo "| $DATE | $PIPELINE_ID | $PASSED | $FAILED | [Reasons]($REASON_LINK) | [Log]($LOG_LINK)" >> Test-Reports.md
+          sed -i '/^$/d' Test Reports.md
+          echo "| $DATE | $PIPELINE_ID | $PASSED | $FAILED | [Reasons]($REASON_LINK) | [Log]($LOG_LINK)" >> Test Reports.md
 
       - name: Git push
         run: |
           cd wiki
           git config user.email "kavipriya.ganapathy@sky.uk"
           git config user.name "kavipriya.ganapathy"
-          git add Test-Reports.md
+          git add Test Reports.md
           git commit -m "Update test report - ${{ github.run_id }}" || echo "No changes"
           git push
 
