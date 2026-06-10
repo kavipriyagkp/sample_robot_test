@@ -141,7 +141,7 @@ jobs:
 
       - name: Change directory and assign variables
         run: |
-          cd wiki
+          ls -lrt
           DATE=$(date "+%Y-%m-%d %H:%M:%S")
           PIPELINE_ID=${{ github.run_id }}
           PASSED=$(jq '.passed' analysis/robot_summary.json)
