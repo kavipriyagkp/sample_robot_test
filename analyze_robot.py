@@ -3,7 +3,7 @@ import glob
 import json
 
 #xml_file = glob.glob("**/output.xml", recursive=True)[0]
-xml_file = glob.glob("logs/output.xml")
+xml_file = "logs/output.xml"
 
 result = ExecutionResult(xml_file)
 
