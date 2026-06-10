@@ -108,8 +108,8 @@ jobs:
       - name: Copy Logs to test-logs branch
         run: |
           mkdir -p test-logs/logs/${{ github.run_id }}
-          cp -r logs/* test-logs/logs/${{ github.run_id }}/
-          cp analysis/robot_summary.json test-logs/logs/${{ github.run_id }}/
+          cp -r logs/* test-logs/logs/Report_${{ github.run_id }}/
+          cp analysis/robot_summary.json test-logs/logs/Report_${{ github.run_id }}/
 
 
       - name: Git push command
@@ -117,7 +117,51 @@ jobs:
           cd test-logs
           git add .
           git commit -m "Upload results to Gitrepo" || echo "No changes to commit"
-          git push origin test-logs
+          git push origin test-logs 
+  
+  update_wiki:
+    runs-on: ubuntu-latest
+    needs: publish
+    steps:
+      
+      - name: Download Analysis Logs
+        uses: actions/download-artifact@v4
+        with:
+          name: robot-analysis-logs-${{ github.run_id }}
+          path: analysis/
+
+      - name: Install jq
+        run: sudo apt-get update && sudo apt-get install -y jq
+
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Clone Repository
+        run: git clone https://x-access-token:${{ secrets.GH_PAT }}@github.com/kavipriyagkp/sample_robot_test.wiki.git wiki
+
+      - name: Change directory and assign variables
+        run: |
+          cd wiki
+          DATE=$(date "+%Y-%m-%d %H:%M:%S")
+          PIPELINE_ID=${{ github.run_id }}
+          PASSED=$(jq '.passed' ../analysis/robot_summary.json)
+          FAILED=$(jq '.failed' ../analysis/robot_summary.json)
+          LOG_LINK="https://github.com/kavipriyagkp/sample_robot_test/tree/test-logs/logs/Report_${{ github.run_id }}/log.html?inline=false"
+          REASON_LINK="https://github.com/kavipriyagkp/sample_robot_test/tree/test-logs/logs/Report_${{ github.run_id }}/robot_summary.json?inline=false"
+          sed -i '/^$/d' Test-Reports.md
+          echo "| $DATE | $PIPELINE_ID | $PASSED | $FAILED | [Reasons]($REASON_LINK) | [Log]($LOG_LINK)" >> Test-Reports.md
+
+      - name: Git push
+        run: |
+          cd wiki
+          git config user.email "kavipriya.ganapathy@sky.uk"
+          git config user.name "kavipriya.ganapathy"
+          git add Test-Reports.md
+          git commit -m "Update test report - ${{ github.run_id }}" || echo "No changes"
+          git push
+
+
+  
 
 
     
