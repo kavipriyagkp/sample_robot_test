@@ -5,6 +5,9 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
@@ -15,3 +18,9 @@ jobs:
 
       - name: Verify Python version
         run: python --version
+
+      - name: Check Current directory
+        run: ls -lrt
+
+      - name: Run test
+        run: robot -d logs/ example.robot
