@@ -107,7 +107,7 @@ jobs:
 
       - name: Copy Logs to test-logs branch
         run: |
-          mkdir -p test-logs/logs/${{ github.run_id }}
+          mkdir -p test-logs/logs/Report_${{ github.run_id }}
           cp -r logs/* test-logs/logs/Report_${{ github.run_id }}/
           cp analysis/robot_summary.json test-logs/logs/Report_${{ github.run_id }}/
 
