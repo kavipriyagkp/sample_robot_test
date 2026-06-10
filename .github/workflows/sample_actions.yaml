@@ -124,6 +124,9 @@ jobs:
     needs: publish
     steps:
       
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
       - name: Download Analysis Logs
         uses: actions/download-artifact@v4
         with:
@@ -132,9 +135,6 @@ jobs:
 
       - name: Install jq
         run: sudo apt-get update && sudo apt-get install -y jq
-
-      - name: Checkout repository
-        uses: actions/checkout@v4
 
       - name: Clone Repository
         run: git clone https://x-access-token:${{ secrets.GH_PAT }}@github.com/kavipriyagkp/sample_robot_test.wiki.git wiki
