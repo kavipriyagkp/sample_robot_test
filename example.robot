@@ -11,4 +11,4 @@ Simple Test
 
 List Test
     @{items}=    Create List    apple    banana    orange
-    Length Should Be    ${items}    3
+    Length Should Be    ${items}    4    msg=Items length is not equal to 4
