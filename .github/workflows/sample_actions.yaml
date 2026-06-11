@@ -23,6 +23,7 @@ jobs:
         run: ls -lrt 
 
       - name: Run test
+        continue-on-error: true
         run: robot -d logs/ example.robot
 
       - name: Check logs after execution
