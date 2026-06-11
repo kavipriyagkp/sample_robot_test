@@ -146,14 +146,14 @@ jobs:
           cd wiki
           ls -lrt
           DATE=$(date "+%Y-%m-%d %H:%M:%S")
-          Github ID=${{ github.run_id }}
+          GithubID=${{ github.run_id }}
           PASSED=$(jq '.passed' ../analysis/robot_summary.json)
           FAILED=$(jq '.failed' ../analysis/robot_summary.json)
           LOG_LINK="https://github.com/kavipriyagkp/sample_robot_test/tree/test-logs/logs/Report_${{ github.run_id }}/log.html?inline=false"
           REASON_LINK="https://github.com/kavipriyagkp/sample_robot_test/tree/test-logs/logs/Report_${{ github.run_id }}/robot_summary.json?inline=false"
           sed -i '/^$/d' Test-Reports.md
           printf "| %s | %s | %s | %s | [Reasons](%s) | [Log](%s) |\n" \
-          "$DATE" "$Github ID" "$PASSED" "$FAILED" "$REASON_LINK" "$LOG_LINK" >> Test-Reports.md
+          "$DATE" "$GithubID" "$PASSED" "$FAILED" "$REASON_LINK" "$LOG_LINK" >> Test-Reports.md
 
       - name: Git push
         run: |
