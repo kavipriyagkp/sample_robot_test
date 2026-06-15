@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 7.4.2 (Python 3.14.5 on linux)" generated="2026-06-15T10:12:14.146364" rpa="false" schemaversion="5">
+<suite id="s1" name="Example" source="/home/runner/work/sample_robot_test/sample_robot_test/example.robot">
+<test id="s1-t1" name="Simple Test" line="8">
+<kw name="Log" owner="BuiltIn">
+<msg time="2026-06-15T10:12:14.188611" level="INFO">Hello, Robot Framework</msg>
+<arg>Hello, ${NAME}</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2026-06-15T10:12:14.188269" elapsed="0.000409"/>
+</kw>
+<kw name="Should Be Equal" owner="BuiltIn">
+<arg>${NAME}</arg>
+<arg>Robot Framework</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="PASS" start="2026-06-15T10:12:14.188832" elapsed="0.000301"/>
+</kw>
+<status status="PASS" start="2026-06-15T10:12:14.187535" elapsed="0.001704"/>
+</test>
+<test id="s1-t2" name="List Test" line="12">
+<kw name="Create List" owner="BuiltIn">
+<msg time="2026-06-15T10:12:14.192886" level="INFO">@{items} = [ apple | banana | orange ]</msg>
+<var>@{items}</var>
+<arg>apple</arg>
+<arg>banana</arg>
+<arg>orange</arg>
+<doc>Returns a list containing given items.</doc>
+<status status="PASS" start="2026-06-15T10:12:14.189696" elapsed="0.003221"/>
+</kw>
+<kw name="Length Should Be" owner="BuiltIn">
+<msg time="2026-06-15T10:12:14.193434" level="INFO">Length is 3.</msg>
+<msg time="2026-06-15T10:12:14.193531" level="FAIL">Items length is not equal to 4</msg>
+<arg>${items}</arg>
+<arg>4</arg>
+<arg>msg=Items length is not equal to 4</arg>
+<doc>Verifies that the length of the given item is correct.</doc>
+<status status="FAIL" start="2026-06-15T10:12:14.193007" elapsed="0.000652">Items length is not equal to 4</status>
+</kw>
+<status status="FAIL" start="2026-06-15T10:12:14.189446" elapsed="0.004384">Items length is not equal to 4</status>
+</test>
+<status status="FAIL" start="2026-06-15T10:12:14.147255" elapsed="0.046945"/>
+</suite>
+<statistics>
+<total>
+<stat pass="1" fail="1" skip="0">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat name="Example" id="s1" pass="1" fail="1" skip="0">Example</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>
